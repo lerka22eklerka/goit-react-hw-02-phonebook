@@ -1,7 +1,14 @@
 import { Component } from 'react';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import { nanoid } from 'nanoid';
+import {
+  BtnStyled,
+  FormStyled,
+  Input,
+  LabelStyled,
+  ErrorMsg,
+} from './ContactForm.styled';
 
 const schema = yup.object().shape({
   name: yup.string().min(3).required(),
@@ -13,6 +20,11 @@ const initialValues = {
   number: '',
   id: nanoid(),
 };
+
+// const FormError = ({ name }) => {
+//   return <ErrorMessage name={name}
+// }
+
 export class ContactForm extends Component {
   state = {
     name: '',
@@ -32,31 +44,31 @@ export class ContactForm extends Component {
         validationSchema={schema}
         onSubmit={this.handleSubmit}
       >
-        <Form autoComplete="off">
-          <label htmlFor="name">
+        <FormStyled autoComplete="off">
+          <LabelStyled htmlFor="name">
             Name
-            <Field
+            <Input
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
             />
-            <ErrorMessage name="name" component="div" />
-          </label>
-          <label htmlFor="number">
+            <ErrorMsg name="name" component="div" />
+          </LabelStyled>
+          <LabelStyled htmlFor="number">
             Number
-            <Field
+            <Input
               type="tel"
               name="number"
               pattern="\+?[0-9\s\-\(\)]+"
               title="You can enter only numbers, spaces and symbols. For example +380967775533"
             />
-            <ErrorMessage name="number" component="div" />
-          </label>
+            <ErrorMsg name="number" component="div" />
+          </LabelStyled>
 
-          <button type="submit">Add contact</button>
-        </Form>
+          <BtnStyled type="submit">Add contact</BtnStyled>
+        </FormStyled>
       </Formik>
     );
   }
