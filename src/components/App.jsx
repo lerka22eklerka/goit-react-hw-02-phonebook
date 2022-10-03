@@ -18,7 +18,7 @@ export class App extends Component {
 
   handleAddContact = contact => {
     const { contacts } = this.state;
-    if (contacts.filter(({ name }) => name === contact.name).length !== 0) {
+    if (contacts.some(({ name }) => name === contact.name)) {
       alert(contact.name + ' is already in contacts!');
       return;
     }
@@ -31,7 +31,7 @@ export class App extends Component {
   handleDeleteContact = id => {
     this.setState(({ contacts }) => {
       const updatedContacts = contacts.filter(contact => contact.id !== id);
-      return { ...this.state, contacts: updatedContacts };
+      return { contacts: updatedContacts };
     });
   };
 
